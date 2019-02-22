@@ -1,44 +1,36 @@
-import { ItemComponent } from './item/item.component';
-import { List } from './shared/models/list.model';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Item } from './shared/models/item.model';
+import { TodoService } from './shared/services/todo.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+ selector: 'app-root',
+ templateUrl: './app.component.html',
+ styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
-  @ViewChild(ItemComponent)
-  private itemList: ItemComponent;
-  
-  
-  public listLabel = "";
-  public lists: List[] = [
-    {
-      label: 'To do',
-      items: [
-        {content: 'Create list'},
-        {content: ' List'},
-        {content: 'List item'},
-      ]
-    }
-  ];
+ 
+ 
+ public todos$: Observable<Item[]> = this.todoService.todos$.asObservable();
+ public content: string;
+ public itemContent: string;
 
-  
+ constructor(private todoService: TodoService) {}
 
-  createList() {
-    if(this.listLabel) {
-      this.lists.push({
-        label: this.listLabel,
-        items: []
-      })
-      this.listLabel= "";
-    }
+ public addTodo() {
+  this.todoService.addTodo({ content: this.content, done: false });
+  this.itemContent ="";
   }
+ 
 
-  
+ public toggleTodo(index: number) {
+   this.todoService.toggleTodo(index);
+ }
 
-
+ public deleteTodo(index: number) {
+   console.log(index);
+   this.todoService.deleteTodo(index);
+ }
 
 }
+

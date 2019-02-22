@@ -2,23 +2,27 @@ import { CoreModule } from './shared/modules/core.module';
 import { LayoutModule } from './shared/modules/layout.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { FormsModule } from '../../node_modules/@angular/forms';
-import { ItemComponent } from './item/item.component';
+import { FormsModule } from '@angular/forms';
+import { TodoService } from './shared/services/todo.service';
+
+/* import { StoreModule} from "@ngrx/store" */
+/* import { reducers } from './shared/store/index'; */
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemComponent
+   
   ],
   imports: [
     BrowserModule,
     FormsModule,
     LayoutModule,
-    CoreModule
+    CoreModule,
+    /* StoreModule.forRoot(reducers) */
+    
   ],
-  providers: [],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,35 @@
 <mat-toolbar color="primary" fxLayout= "row" fxLayoutAlign ="start center" FxLayoutGap= "15px">
   <span fxFlex= "auto">OverKill Todos</span>
-  <mat-form-field class="p-15">
+  <!-- <mat-form-field class="p-15">
     <input (keydown.enter)= "createList()" [(ngModel)]= "listLabel" matInput placeholder="list name" type="text">
   </mat-form-field>
-  <button mat-raised-button color="accent" (click)="createList()">Create a new list</button>
+  <button mat-raised-button color="accent" (click)="createList()">Create a new list</button> -->
   </mat-toolbar>
 
-  <app-item></app-item>
+  <div class="p-15"  fxLayoutAlign= "start start" fxLayoutGap="15px">
+    <mat-card>
+      <mat-card-header fxLayoutAlign = "center center">ToDoList</mat-card-header>
+     
+      <mat-card-actions fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+          <mat-form-field>
+            <input (keydown.enter)= "addTodo()"[(ngModel)]= "itemContent" matInput placeholder= "item name" type="text">
+          </mat-form-field>
+        <button mat-raised-button color="accent" (click)= "addTodo(item)">AddToList</button>
+        </mat-card-actions>
+
+      <mat-card-content>
+        <mat-list>
+            <div fxLayout= "column" fxLayoutAlign="space-between">
+          <mat-list-item  *ngFor= "let todo of todos$ | async; let i = index;" >
+            <mat-checkbox (click)="toggleTodo(i)"></mat-checkbox>
+            <span fxFlex="auto">{{content}}</span>
+            <button mat-raised-button color="warn" (click)= "deleteTodo(i)">Delete</button>
+          </mat-list-item>
+        </div>
+          </mat-list>
+      </mat-card-content>
+      
+      
+    
+    </mat-card>
+  </div>

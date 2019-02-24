@@ -3,21 +3,42 @@ import * as todosAction from './todos.action'
 
 
     const initialState = {
-        datas: [
-        {
-            content: "Faire ses courses",
-            done: false
-            
-        }
-    ]
+        datas: null,
+        loading: false,
+        loaded: false,
+        error: null
     };
 
     export interface TodoState {
     datas: Item[];
+    loading: boolean,
+    loaded: boolean,
+    error: any
     }
 
     export function todosReducer( state : TodoState = initialState, action: todosAction.TodosActionType ) : TodoState {
     switch (action.type) {
+        case todosAction.FETCH_TODO :
+            return {
+                ...state,
+                loading: true
+            };
+        case todosAction.FETCH_TODO_SUCCESS :
+            return {
+                ...state,
+                datas: action.payload,
+                loading: false,
+                loaded: true,
+                error: null
+            };
+        case todosAction.FETCH_TODO_ERROR :
+            return {
+                ...state,
+                loading: false,
+                loaded: true,
+                error: action.payload
+            };
+        
         case todosAction.TODO_CREATE:
         return {
             ...state,
